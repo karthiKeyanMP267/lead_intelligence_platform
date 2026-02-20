@@ -1,17 +1,17 @@
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 import json
 from pathlib import Path
 
 try:
-    from backend.database import engine, Base, SessionLocal
-    from backend import models
-    from backend.models import Lead
-    from backend.inference import score_all_leads, assign_priorities
-    from backend.inference import score_single_lead
+    from database import engine, Base, SessionLocal
+    from models import Lead
+    from retrain import retrain_model
+    from inference import score_all_leads, assign_priorities
+    from inference import score_single_lead
 except ModuleNotFoundError:
     from database import engine, Base, SessionLocal
-    import models
     from models import Lead
     from inference import score_all_leads, assign_priorities
     from inference import score_single_lead
@@ -19,6 +19,14 @@ except ModuleNotFoundError:
 app = FastAPI()
 BASE_DIR = Path(__file__).resolve().parent
 MODELS_DIR = BASE_DIR / "models"
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -124,4 +132,14 @@ def simulate_event(lead_id: int, db: Session = Depends(get_db)):
     return {
         "message": "Event simulated and lead re-scored",
         "new_score": new_score
+    }
+
+@app.post("/retrain")
+def retrain():
+    metrics = retrain_model()
+    score_all_leads()
+    assign_priorities()
+    return {
+        "message": "Model retrained and leads re-scored",
+        "metrics": metrics
     }

@@ -32,3 +32,4 @@ class Lead(Base):
 
     score = Column(Float)
     priority = Column(String)
+    converted = Column(Integer)

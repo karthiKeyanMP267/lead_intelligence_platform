@@ -46,7 +46,7 @@ def load_data():
             source=row["source"],
             ads_clicked=int(row["ads_clicked"]),
             campaign_engagement_score=float(row["campaign_engagement_score"]),
-
+            converted=int(row["converted"]),    
             score=None,
             priority=None
         )

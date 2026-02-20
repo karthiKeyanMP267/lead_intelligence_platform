@@ -8,6 +8,7 @@ All project content now lives inside this `backend` folder.
 - `ml/` data generation, consolidation, and training scripts
 - `data/` raw and processed CSV files
 - `models/` trained model and metrics artifacts
+- `config.py` application configuration settings
 - `requirements.txt` Python dependencies
 
 ## Setup
