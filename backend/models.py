@@ -30,6 +30,13 @@ class Lead(Base):
     ads_clicked = Column(Integer)
     campaign_engagement_score = Column(Float)
 
+    # Aggregated conversation/NLP signals
+    avg_sentiment_score = Column(Float, default=0.0)
+    avg_intent_score = Column(Float, default=0.0)
+    avg_urgency_score = Column(Float, default=0.0)
+    conversation_count = Column(Integer, default=0)
+    recency_score = Column(Float, default=1.0)
+
     score = Column(Float)
     priority = Column(String)
     converted = Column(Integer)

@@ -9,3 +9,7 @@ uvicorn==0.29.0
 sqlalchemy==2.0.29
 psycopg2-binary==2.9.9
 python-dotenv==1.0.1
+python-multipart==0.0.9
+transformers==4.37.2
+# Use a torch version with available wheels for Python 3.12 on Windows
+torch==2.2.2

@@ -88,6 +88,10 @@ joblib.dump(best_model, MODELS_DIR / "best_model.pkl")
 with open(MODELS_DIR / "model_name.txt", "w") as f:
     f.write(best_model_name)
 
+# Save feature column list — used by inference to align one-hot columns
+with open(MODELS_DIR / "feature_columns.json", "w") as f:
+    json.dump(X.columns.tolist(), f)
+
 # Save metrics comparison
 with open(MODELS_DIR / "metrics.json", "w") as f:
     json.dump(results, f, indent=4)

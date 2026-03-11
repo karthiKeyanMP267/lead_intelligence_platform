@@ -46,6 +46,11 @@ def load_data():
             source=row["source"],
             ads_clicked=int(row["ads_clicked"]),
             campaign_engagement_score=float(row["campaign_engagement_score"]),
+            avg_sentiment_score=float(row.get("avg_sentiment_score", 0.0)),
+            avg_intent_score=float(row.get("avg_intent_score", 0.0)),
+            avg_urgency_score=float(row.get("avg_urgency_score", 0.0)),
+            conversation_count=int(row.get("conversation_count", 0)),
+            recency_score=float(row.get("recency_score", 1.0)),
             converted=int(row["converted"]),    
             score=None,
             priority=None
